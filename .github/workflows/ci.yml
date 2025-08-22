@@ -1,0 +1,33 @@
+# This ci.yml file is a set of instructions for a virtual robot that GitHub will run every time you push code. It tells the robot to build and test your application.
+name: Full-Stack CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Frontend Dependencies
+        run: npm install
+
+      - name: Install Backend Dependencies
+        run: npm install --prefix backend
+
+      - name: Run Backend Tests
+        run: npm test --prefix backend
+
+      - name: Run Frontend E2E Tests
+        run: npx cypress run --browser chrome
