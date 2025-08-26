@@ -15,7 +15,6 @@ import NotesPage from './pages/NotesPage';
 function App() {
   const { loading } = useAuth();
 
-  // Show a loading indicator while the auth state is being determined
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-gray-100">

@@ -1,4 +1,3 @@
-// frontend/src/components/TaskCard.jsx
 import React from "react";
 import { Edit, Trash2, Calendar, Check, Zap } from "lucide-react";
 

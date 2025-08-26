@@ -1,6 +1,7 @@
 describe('Items CRUD Flow', () => {
   beforeEach(() => {
     // Log in the user before each test
+
     cy.visit('http://localhost:5173/login');
     cy.get('input[name="email"]').type('sup@gmail.com');
     cy.get('input[name="password"]').type('1234567');
@@ -39,7 +40,7 @@ describe('Items CRUD Flow', () => {
     cy.url().should('include', '/dashboard');
     cy.contains(updatedItemTitle).should('be.visible');
     
-    // Add a short delay here to ensure the UI has time to re-render after the update
+    
     cy.wait(500);
 
     // --- DELETE ---
@@ -49,10 +50,9 @@ describe('Items CRUD Flow', () => {
       .find('svg[data-lucide="trash-2"]')
       .click();
 
-    // Confirm the deletion in the browser's native dialog
+      
     cy.on('window:confirm', () => true);
-
-    // Wait for the task to be removed from the DOM
+    
     cy.contains(updatedItemTitle).should('not.exist');
   });
 });

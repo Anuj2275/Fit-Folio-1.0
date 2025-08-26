@@ -7,21 +7,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+Dependencies
+/backend/node_modules
+/frontend/node_modules
+
 Build output
-dist
+/backend/dist
+/frontend/dist
 dist-ssr
 *.local
-
-Dependencies
-node_modules/
-
-Ignore package files
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-Environment variables
-.env
 
 Editor directories and files
 .vscode/*
@@ -33,3 +27,8 @@ Editor directories and files
 *.njsproj
 *.sln
 *.sw?
+
+Environment variables
+.env
+
+jest.setTimeout(20000); // 20 seconds for all tests in this file

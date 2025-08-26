@@ -1,11 +1,8 @@
-// backend/src/models/item.model.js
 import mongoose from "mongoose";
-
-// Mongoose schema for the Item model (Tasks/Habits)
 const itemSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId, // Reference to the User model
+      type: mongoose.Schema.Types.ObjectId, 
       ref: "User",
       required: true,
     },
@@ -15,12 +12,11 @@ const itemSchema = new mongoose.Schema(
       trim: true,
     },
     dueDate: {
-      // Corrected field name
       type: Date,
     },
     type: {
       type: String,
-      enum: ["task", "habit"], // Can only be 'task' or 'habit'
+      enum: ["task", "habit"], 
       default: "task",
     },
     completed: {
@@ -29,6 +25,6 @@ const itemSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
-); // Automatically add createdAt and updatedAt fields
+); 
 
 export default mongoose.model("Item", itemSchema);

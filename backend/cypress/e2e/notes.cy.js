@@ -1,20 +1,18 @@
-// notes.spec.js
-
 describe('Notes Feature', () => {
-  // A test to verify that the notes page is working correctly
+  
   it('should create a new note with Markdown and display it correctly', () => {
-    // 1. Log in to the application
+
     cy.visit('http://localhost:5173/login');
     cy.get('input[name="email"]').type('sup@gmail.com');
     cy.get('input[name="password"]').type('1234567');
     cy.get('button[type="submit"]').contains('Login').click();
     cy.url().should('include', '/dashboard');
 
-    // 2. Navigate to the notes page
+
     cy.get('a').contains('Notes').click();
     cy.url().should('include', '/notes');
 
-    // 3. Fill out the form with a new note
+
     const noteTitle = 'My E2E Test Note';
     const noteContent = '# Test Heading\nThis is a **bold** and *italic* note.';
 
@@ -22,17 +20,15 @@ describe('Notes Feature', () => {
     cy.get('textarea[placeholder="Write your note in Markdown..."]').type(noteContent);
     cy.get('button[type="submit"]').contains('Save Note').click();
 
-    // 4. Verify the note is displayed in the list
     cy.contains(noteTitle).should('be.visible');
 
-    // 5. Verify the Markdown is rendered as HTML
+
     cy.get('.prose').within(() => {
       cy.get('h1').should('have.text', 'Test Heading');
       cy.get('strong').should('have.text', 'bold text');
       cy.get('em').should('have.text', 'italic');
     });
 
-    // 6. Clean up: delete the created note
     cy.contains(noteTitle)
       .parent()
       .find('svg[data-lucide="trash-2"]')

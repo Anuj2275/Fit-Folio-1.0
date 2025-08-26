@@ -1,4 +1,3 @@
-// frontend/src/pages/EditItem.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/api";
@@ -6,11 +5,11 @@ import api from "../api/api";
 const EditItem = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true); // FIX: Set initial loading state to true
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     title: "",
-    description: "", // FIX: Add description to formData
+    description: "", 
     dueDate: "",
     type: "task",
     completed: false,
@@ -20,13 +19,13 @@ const EditItem = () => {
     const fetchItem = async () => {
       try {
         setLoading(true);
-        const res = await api.tasks.getTaskById(id); // FIX: Use the correct API method
+        const res = await api.tasks.getTaskById(id);
         const { title, description, dueDate, type, completed } = res.data;
 
         setFormData({
-          title: title || "", // Ensure no null values for controlled components
+          title: title || "", 
           description: description || "",
-          dueDate: dueDate ? new Date(dueDate).toISOString().split("T")[0] : "", // FIX: Correctly format date for input
+          dueDate: dueDate ? new Date(dueDate).toISOString().split("T")[0] : "", 
           type: type || "task",
           completed: completed || false,
         });
@@ -35,18 +34,18 @@ const EditItem = () => {
         console.error("Failed to fetch task:", err);
         setError("Could not load task data.");
       } finally {
-        setLoading(false); // FIX: Stop loading after fetch
+        setLoading(false); 
       }
     };
     fetchItem();
-  }, [id]); // FIX: Dependency array includes id to re-fetch if URL param changes
+  }, [id]); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     try {
-      await api.tasks.updateTask(id, formData); // FIX: Use the correct API method
+      await api.tasks.updateTask(id, formData); 
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Failed to update item.");
@@ -60,7 +59,7 @@ const EditItem = () => {
     setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
   };
 
-  // FIX: Render loading state or error message before the form
+  
   if (loading) {
     return <div className="text-center mt-10">Loading item for editing...</div>;
   }
@@ -80,7 +79,7 @@ const EditItem = () => {
           required
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        {/* FIX: Add description input */}
+        
         <textarea
           name="description"
           value={formData.description}

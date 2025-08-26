@@ -62,27 +62,3 @@ export default {
   shortener,
   notes
 };
-
-
-// import axios from 'axios';
-
-// // Create an Axios instance with a base URL for your backend
-// const api = axios.create({
-//   baseURL: 'http://localhost:3000/api', // Your backend server address
-// });
-
-// // Interceptor to add the JWT to every request if it exists
-// api.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-// export default api;

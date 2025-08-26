@@ -1,8 +1,6 @@
-// frontend/src/hooks/useAuth.js
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
-// Custom hook to easily access the authentication context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

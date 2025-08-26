@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import api from '../api/api';
-// import { useAuth } from '../hooks/useAuth';
 import MarkdownIt from 'markdown-it';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 const md = new MarkdownIt();
@@ -37,7 +36,7 @@ const NotesPage = () => {
                 await api.notes.createNote({title,content});
             }
 
-            // refetching the notes after an action
+            
             const res = await api.notes.getNotes();
             setNotes(res.data);
             setTitle('');

@@ -16,7 +16,7 @@ const ShortenerPage = () => {
         setLoading(true);
         setShortUrl('');
 
-        // FIX: Add a protocol if it's missing to ensure a valid URL
+        
         const fullUrl = longUrl.startsWith('http://') || longUrl.startsWith('https://')
             ? longUrl
             : `https://${longUrl}`;
