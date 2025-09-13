@@ -11,7 +11,6 @@ import { useAuth } from './hooks/useAuth';
 import ShortenerPage from './pages/ShortenerPage';
 import NotesPage from './pages/NotesPage';
 
-
 function App() {
   const { loading } = useAuth();
 
@@ -45,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 

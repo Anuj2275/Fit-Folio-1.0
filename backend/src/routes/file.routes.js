@@ -1,10 +1,10 @@
 import express from 'express';
-
-import upload from '../middleware/upload.middleware.js'; 
-import { uploadProfilePicture } from '../controllers/file.controller.js'; 
+import multer from 'multer';
+import { uploadProfilePicture } from '../controllers/file.controller.js';
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/upload/profile",upload.single('picture'),uploadProfilePicture)
+router.post('/files/upload-profile-picture', upload.single('picture'), uploadProfilePicture);
 
 export default router;

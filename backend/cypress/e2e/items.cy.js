@@ -1,7 +1,5 @@
 describe('Items CRUD Flow', () => {
   beforeEach(() => {
-    // Log in the user before each test
-
     cy.visit('http://localhost:5173/login');
     cy.get('input[name="email"]').type('sup@gmail.com');
     cy.get('input[name="password"]').type('1234567');
@@ -12,8 +10,7 @@ describe('Items CRUD Flow', () => {
   it('should perform a full CRUD cycle on a new item', () => {
     const newItemTitle = 'Test Task E2E';
     const updatedItemTitle = 'Updated Test Task E2E';
-    
-    // --- CREATE ---
+  
     cy.log('Creating a new task...');
     cy.get('button').contains('Create New Item').click();
     cy.url().should('include', '/create');
@@ -43,7 +40,6 @@ describe('Items CRUD Flow', () => {
     
     cy.wait(500);
 
-    // --- DELETE ---
     cy.log('Deleting the task...');
     cy.contains(updatedItemTitle)
       .parents('[class*="TaskCard"]')

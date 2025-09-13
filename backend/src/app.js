@@ -15,7 +15,6 @@ import { redirectToLongUrl } from './controllers/shortUrl.controller.js';
 
 const app = express();
 
-// Only connect Redis outside of test environment
 let redisClient;
 if (process.env.NODE_ENV !== "test") {
   redisClient = new Redis({
@@ -28,7 +27,7 @@ if (process.env.NODE_ENV !== "test") {
       client: redisClient,
       sendCommand: (...args) => redisClient.call(...args),
     }),
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: 15 * 60 * 1000,
     max: 100,
     message: 'Too many requests from this IP, please try again after 15 minutes.',
   });
@@ -37,10 +36,10 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 app.use(cors({ origin: 'http://localhost:5173' }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
 app.get("/:shortCode", redirectToLongUrl);
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/api/auth", authRoutes);
@@ -50,7 +49,6 @@ app.use('/api', shortUrlRoutes);
 app.use('/', shortUrlRoutes);
 app.use("/api", noteRoutes);
 
-// Error handler
 app.use((err, req, res, next) => {
   console.error("Backend Error:", err.stack);
   const statusCode = err.statusCode || 500;

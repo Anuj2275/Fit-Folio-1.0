@@ -10,29 +10,41 @@ const ItemCard = ({ task, onDelete, onEdit, onToggleComplete }) => {
     : null;
 
   const statusClasses = task.completed
-    ? "border-l-4 border-green-500 bg-green-50"
-    : "border-l-4 border-yellow-500 bg-white";
+    ? "border-l-4 border-green-600 bg-green-50"
+    : "border-l-4 border-blue-500 bg-white";
 
   return (
     <div
-      className={`rounded-xl shadow-lg p-5 transition-all duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl ${statusClasses} ${
-        task.deleted ? "opacity-0 scale-90" : "opacity-100 scale-100"
-      }`}
+      className={`
+        rounded-xl shadow-md p-5 transition-all duration-300 ease-in-out 
+        transform hover:shadow-lg hover:scale-[1.01] 
+        ${statusClasses}
+        ${
+          task.deleted
+            ? "opacity-0 scale-95 -translate-y-2"
+            : "opacity-100 scale-100 translate-y-0"
+        }
+      `}
     >
       <div className="flex justify-between items-start mb-4">
         <h3
-          className={`font-bold text-lg text-gray-800 ${
-            task.completed ? "line-through text-gray-400" : ""
-          }`}
+          className={`
+            font-bold text-lg md:text-xl text-gray-800 flex-1 
+            ${task.completed ? "line-through text-gray-400" : ""}
+          `}
         >
           {task.title}
         </h3>
         <div
-          className={`text-xs font-bold px-3 py-1 rounded-full capitalize flex items-center gap-1 ${
-            task.type === "habit"
-              ? "bg-purple-100 text-purple-800"
-              : "bg-indigo-100 text-indigo-800"
-          }`}
+          className={`
+            text-xs font-bold px-3 py-1 rounded-full capitalize 
+            flex items-center gap-1 flex-shrink-0
+            ${
+              task.type === "habit"
+                ? "bg-purple-100 text-purple-800"
+                : "bg-indigo-100 text-indigo-800"
+            }
+          `}
         >
           <Zap size={12} />
           {task.type}
@@ -42,33 +54,37 @@ const ItemCard = ({ task, onDelete, onEdit, onToggleComplete }) => {
       {formattedDate && (
         <div className="flex items-center text-gray-500 text-sm mb-4">
           <Calendar className="mr-2" size={16} />
-          <span>{formattedDate}</span>
+          <span className="font-medium">{formattedDate}</span>
         </div>
       )}
 
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
         <button
           onClick={onToggleComplete}
-          className={`flex items-center gap-2 text-sm font-semibold py-2 px-3 rounded-lg transition-colors ${
-            task.completed
-              ? "bg-green-100 text-green-700 hover:bg-green-200"
-              : "bg-gray-200 text-gray-600 hover:bg-gray-300"
-          }`}
+          className={`
+            flex items-center gap-2 text-sm font-semibold py-2 px-4 rounded-lg 
+            transition-colors duration-200
+            ${
+              task.completed
+                ? "bg-green-100 text-green-700 hover:bg-green-200"
+                : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+            }
+          `}
         >
-          {task.completed ? <Check size={16} /> : null}
+          <Check size={16} />
           {task.completed ? "Completed" : "Mark as Complete"}
         </button>
-        <div className="flex space-x-3">
+        <div className="flex space-x-2">
           <button
             onClick={onEdit}
-            className="text-gray-400 hover:text-blue-500 transition-colors"
+            className="p-2 rounded-full text-gray-500 hover:text-blue-600 hover:bg-gray-100 transition-colors"
             title="Edit Task"
           >
             <Edit size={20} />
           </button>
           <button
             onClick={onDelete}
-            className="text-gray-400 hover:text-red-500 transition-colors"
+            className="p-2 rounded-full text-gray-500 hover:text-red-600 hover:bg-gray-100 transition-colors"
             title="Delete Task"
           >
             <Trash2 size={20} />
@@ -80,39 +96,3 @@ const ItemCard = ({ task, onDelete, onEdit, onToggleComplete }) => {
 };
 
 export default ItemCard;
-
-// import React from "react";
-// import { Link } from "react-router-dom";
-
-// const ItemCard = ({ task, onDelete }) => {
-//   return (
-//     <>
-//       <div className="bg-white shadow rounded-md p-4 flex justify-between items-start">
-//         <div>
-//           <h3 className="text-lg font-semibold">{task.title}</h3>
-//           {task.completed && (
-//             <span className="mt-2 inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-//               Completed
-//             </span>
-//           )}
-//         </div>
-//         <div className="flex space-x-2">
-//           <Link
-//             to={`/edit/${task._id}`}
-//             className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-//           >
-//             Edit
-//           </Link>
-//           <button
-//             onClick={() => onDelete(task._id)}
-//             className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-//           >
-//             Delete
-//           </button>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ItemCard;

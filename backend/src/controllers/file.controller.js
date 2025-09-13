@@ -1,51 +1,32 @@
-import sharp from "sharp";
+import cloudinary from '../utils/cloudinary.js';
+import DataURI from 'datauri/parser.js';
+import path from 'path';
 
-
-import fs from "fs/promises"; 
-
-import path from "path"; 
 export const uploadProfilePicture = async (req, res, next) => {
   try {
-    
     if (!req.file) {
-      return res
-        .status(400)
-        .json({ message: "No file uploaded or file type not supported." });
+      return res.status(400).json({ message: "No file uploaded." });
     }
+    const parser = new DataURI();
+    const file = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer);
 
-    const originalImagePath = req.file.path; // extract path
-
-    const outputDir = path.join(process.cwd(), "uploads", "processed");
-
-    const outputFilename = `thumb-${req.file.filename.split(".")[0]}.webp`;
-
-    const outputPath = path.join(outputDir, outputFilename); 
-    
-    await fs.mkdir(outputDir, { recursive: true });
-
-    await sharp(originalImagePath)
-      .resize(200, 200, {
-        fit: sharp.fit.inside,
-        withoutEnlargement: true,
-      })
-      .webp({ quality: 80 })
-      .toFile(outputPath);
-
-    await fs.unlink(originalImagePath);
+    const result = await cloudinary.uploader.upload(file.content, {
+      folder: "profile_pictures",
+      public_id: `${Date.now()}-${req.file.originalname.replace(/\s/g, '_')}`,
+      resource_type: "auto",
+      transformation: [
+        { width: 200, height: 200, crop: "fit" },
+        { quality: "auto:low" }
+      ]
+    });
 
     res.status(200).json({
       message: "Profile picture uploaded and processed successfully!",
-      filePath: `/uploads/processed/${outputFilename}`,
-      fileName: outputFilename,
+      filePath: result.secure_url,
+      fileName: result.public_id,
     });
   } catch (error) {
-    console.error("Error in file upload/processing:", error);
-    if (req.file && req.file.path) {
-      await fs.unlink(req.file.path).catch((err) => {
-        console.error("Failed to delete temp file on error:", err);
-      });
-    }
+    console.error("Cloudinary upload error:", error);
     next(error);
   }
 };
-
