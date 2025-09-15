@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const apiBaseUrl =
-  process.env.NODE_ENV === 'development'
+  import.meta.env.DEV
     ? 'http://localhost:3000/api'
     : import.meta.env.VITE_API_BASE_URL;
-
+    
 const api = axios.create({
   baseURL: apiBaseUrl,
   headers: {
