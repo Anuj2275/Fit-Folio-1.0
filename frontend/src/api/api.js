@@ -29,18 +29,17 @@ const auth = {
   signup: (userdata) => api.post('/api/auth/signup', userdata),
   login: (credentials) => api.post('/api/auth/login', credentials),
 };
-
 const tasks = {
-  getTasks: () => api.get("/items"),
-  createTask: (data) => api.post("/items", data),
-  updateTask: (id, data) => api.put(`/items/${id}`, data),
-  deleteTask: (id) => api.delete(`/items/${id}`),
-  getTaskById: (id) => api.get(`/items/${id}`),
+  getTasks: () => api.get("/api/items"),
+  createTask: (data) => api.post("/api/items", data),
+  updateTask: (id, data) => api.put(`/api/items/${id}`, data),
+  deleteTask: (id) => api.delete(`/api/items/${id}`),
+  getTaskById: (id) => api.get(`/api/items/${id}`),
 };
 
 const files = {
   uploadProfilePicture: (formData) => {
-    return api.post("/files/upload-profile-picture", formData, {
+    return api.post("/api/files/upload-profile-picture", formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -49,17 +48,16 @@ const files = {
 };
 
 const shortener = {
-  createShortUrl: (longUrl) => api.post('/shorten', { longUrl })
+  createShortUrl: (longUrl) => api.post('/api/shorten', { longUrl })
 }
 
 const notes = {
-  getNotes: () => api.get("/notes"),
-  createNote: (noteData) => api.post("/notes", noteData),
-  getNoteById: (id) => api.get(`/notes/${id}`),
-  updateNote: (id, noteData) => api.put(`/notes/${id}`, noteData),
-  deleteNote: (id) => api.delete(`/notes/${id}`),
+  getNotes: () => api.get("/api/notes"),
+  createNote: (noteData) => api.post("/api/notes", noteData),
+  getNoteById: (id) => api.get(`/api/notes/${id}`),
+  updateNote: (id, noteData) => api.put(`/api/notes/${id}`, noteData),
+  deleteNote: (id) => api.delete(`/api/notes/${id}`),
 }
-
 export default {
   auth,
   tasks,
