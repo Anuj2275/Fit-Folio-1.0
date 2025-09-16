@@ -26,8 +26,8 @@ api.interceptors.request.use(
 );
 
 const auth = {
-  signup: (userdata) => api.post('/auth/signup', userdata),
-  login: (credentials) => api.post('/auth/login', credentials),
+  signup: (userdata) => api.post('/api/auth/signup', userdata),
+  login: (credentials) => api.post('/api/auth/login', credentials),
 };
 
 const tasks = {
