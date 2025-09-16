@@ -4,7 +4,7 @@ const apiBaseUrl =
   import.meta.env.DEV
     ? 'http://localhost:3000/api'
     : import.meta.env.VITE_API_BASE_URL;
-    
+    console.log('API Base URL:', apiBaseUrl); 
 const api = axios.create({
   baseURL: apiBaseUrl,
   headers: {
